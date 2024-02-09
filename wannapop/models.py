@@ -90,3 +90,8 @@ class ConfirmedOrder(db.Model, BaseMixin, SerializableMixin):
 
     # Relationship
     order = relationship("Order", backref="confirmed_order", uselist=False)
+
+class Status(db.Model, BaseMixin, SerializableMixin):
+    __tablename__ = "status"
+    id = db.Column(db.Integer, primary_key=True)
+    estado = db.Column(db.String, nullable=False)

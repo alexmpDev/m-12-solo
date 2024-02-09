@@ -38,20 +38,20 @@ CREATE TABLE products (
 
 -- Crear la taula orders
 CREATE TABLE orders (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	product_id INTEGER,
-	buyer_id INTEGER,
-	created DATETIME NOT NULL DEFAULT (DATETIME('now')),
-	CONSTRAINT uc_product_buyer UNIQUE (product_id, buyer_id),
-	FOREIGN KEY (product_id) REFERENCES products(id),
-	FOREIGN KEY (buyer_id) REFERENCES users(id)
+    id INTEGER PRIMARY KEY,
+    product_id INTEGER NOT NULL,
+    buyer_id INTEGER NOT NULL,
+    offer REAL NOT NULL,
+    created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (buyer_id) REFERENCES users(id)
 );
 
 -- Crear la taula confirmed_orders
 CREATE TABLE confirmed_orders (
-	order_id INTEGER PRIMARY KEY,
-	created DATETIME NOT NULL DEFAULT (DATETIME('now')),
-	FOREIGN KEY (order_id) REFERENCES orders(id)
+    order_id INTEGER PRIMARY KEY,
+    created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id)
 );
 
 
@@ -67,4 +67,9 @@ CREATE TABLE banned_products (
     reason TEXT,
     created DATETIME NOT NULL DEFAULT (DATETIME('now')),
     product_id INTEGER REFERENCES products(id)
+);
+
+CREATE TABLE status (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    estado VARCHAR(50)
 );
